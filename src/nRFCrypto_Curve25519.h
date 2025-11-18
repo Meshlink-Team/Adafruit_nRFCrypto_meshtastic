@@ -1,6 +1,6 @@
 /*
    The MIT License (MIT)
-   Copyright (c) 2021 Kongduino
+   Copyright (c) 2025 Meshtastic Team
    Permission is hereby granted, free of charge, to any person obtaining a copy
    of this software and associated documentation files (the "Software"), to deal
    in the Software without restriction, including without limitation the rights
@@ -18,30 +18,24 @@
    THE SOFTWARE.
 */
 
-#ifndef NRFCRYPTO_AES_H_
-#define NRFCRYPTO_AES_H_
+#ifndef NRFCRYPTO_CURVE25519_H_
+#define NRFCRYPTO_CURVE25519_H_
 
-#include "nrf_cc310/include/ssi_aes.h"
-#include "nrf_cc310/include/sns_silib.h"
+#include "nrf_cc310/include/crys_ec_mont_api.h"
+#include "nrf_cc310/include/crys_ec_mont_edw_error.h"
 
-class nRFCrypto_AES {
+class nRFCrypto_Curve25519 {
   public:
-    nRFCrypto_AES(void);
+    nRFCrypto_Curve25519(void);
     bool begin(void);
     void end(void);
-    int Process(
-      char *msg, uint8_t msgLen, uint8_t *IV, uint8_t *pKey, uint8_t pKeyLen,
-      char *retBuf, SaSiAesEncryptMode_t modeFlag, SaSiAesOperationMode_t opMode);
-    SaSiAesEncryptMode_t encryptFlag = (SaSiAesEncryptMode_t) 0; // SASI_AES_ENCRYPT
-    SaSiAesEncryptMode_t decryptFlag = (SaSiAesEncryptMode_t) 1; // SASI_AES_DECRYPT
-    SaSiAesOperationMode_t ecbMode = (SaSiAesOperationMode_t) 0; // SASI_AES_MODE_ECB
-    SaSiAesOperationMode_t cbcMode = (SaSiAesOperationMode_t) 1; // SASI_AES_MODE_CBC
-    SaSiAesOperationMode_t ctrMode = (SaSiAesOperationMode_t) 3; // SASI_AES_MODE_CTR
-    uint8_t blockLen(uint8_t);
+    CRYSError_t sign();
+    CRYSError_t verify();
+    CRYSError_t encrypt();
+    CRYSError_t decrypt();
+    CRYS_ECMONT_DomainId_t domain = CRYS_ECMONT_DOMAIN_CURVE_25519;
   private:
     bool _begun;
-    SaSiAesPaddingType_t _paddingType = (SaSiAesPaddingType_t) 0; // SASI_AES_PADDING_NONE
-    SaSiAesKeyType_t _userKey = (SaSiAesKeyType_t) 0; // SASI_AES_USER_KEY
 };
 
-#endif /* NRFCRYPTO_AES_H_ */
+#endif /* NRFCRYPTO_CURVE25519_H_ */

@@ -36,4 +36,4 @@ class nRFCrypto_Chacha {
     bool _begun;
 };
 
-#endif /* NRFCRYPTO_RANDOM_H_ */
+#endif /* NRFCRYPTO_Chacha20_H_ */

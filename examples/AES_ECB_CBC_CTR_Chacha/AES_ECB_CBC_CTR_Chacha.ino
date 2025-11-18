@@ -1,4 +1,5 @@
 #include <Adafruit_nRFCrypto.h>
+#include <Adafruit_TinyUSB.h> // for Serial
 
 nRFCrypto_AES aes;
 
