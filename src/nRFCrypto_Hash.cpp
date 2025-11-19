@@ -58,3 +58,8 @@ uint8_t nRFCrypto_Hash::end(uint32_t result[16]) {
   VERIFY_ERROR(CRYS_HASH_Finish(&_context, result), 0);
   return _digest_len;
 }
+
+uint8_t nRFCrypto_Hash::singleOperation(CRYS_HASH_OperationMode_t mode, uint8_t data[], size_t size, uint32_t result[16]) {
+  VERIFY_ERROR(CRYS_HASH(mode, data, size, result), 0 );
+  return _digest_len;
+}

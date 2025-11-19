@@ -39,6 +39,10 @@ class nRFCrypto_Hash {
     uint8_t end(uint8_t result[64]) {
       return end((uint32_t*) result);
     }
+    uint8_t singleOperation(CRYS_HASH_OperationMode_t mode, uint8_t data[], size_t size, uint32_t result[16]);
+    uint8_t singleOperation(CRYS_HASH_OperationMode_t mode, uint8_t data[], size_t size, uint8_t result[64]) {
+      return singleOperation(mode, data, size, (uint32_t*) result);
+    }
   private:
     CRYS_HASHUserContext_t _context;
     uint8_t _digest_len;
