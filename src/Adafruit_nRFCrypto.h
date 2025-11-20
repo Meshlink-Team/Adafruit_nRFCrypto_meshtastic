@@ -28,6 +28,7 @@
 #include "nRFCrypto_AES.h"
 #include "nRFCrypto_Chacha.h"
 #include "ecc/nRFCrypto_ECC.h"
+#include "nRFCrypto_ed25519.h"
 
 class Adafruit_nRFCrypto {
   public:

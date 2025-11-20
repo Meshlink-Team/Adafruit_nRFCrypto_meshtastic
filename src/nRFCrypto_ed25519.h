@@ -18,24 +18,32 @@
    THE SOFTWARE.
 */
 
-#ifndef NRFCRYPTO_CURVE25519_H_
-#define NRFCRYPTO_CURVE25519_H_
+#ifndef NRFCRYPTO_ED25519_H_
+#define NRFCRYPTO_ED25519_H_
 
-#include "nrf_cc310/include/crys_ec_mont_api.h"
+#include "nrf_cc310/include/crys_ec_edw_api.h"
 #include "nrf_cc310/include/crys_ec_mont_edw_error.h"
+#include "nrf_cc310/include/crys_rnd.h"
 
-class nRFCrypto_Curve25519 {
+#define ED25519_KEY_SIZE_BYTES       32
+#define ED25519_SIGNATURE_SIZE_BYTES 64
+
+class nRFCrypto_ed25519 {
   public:
-    nRFCrypto_Curve25519(void);
+    nRFCrypto_ed25519(void);
     bool begin(void);
     void end(void);
-    CRYSError_t sign();
-    CRYSError_t verify();
-    CRYSError_t encrypt();
-    CRYSError_t decrypt();
-    CRYS_ECMONT_DomainId_t domain = CRYS_ECMONT_DOMAIN_CURVE_25519;
+
+    bool generateKeyPair(uint8_t pSecrKey[], uint8_t pPublKey[]);
+
+    bool sign(uint8_t pSign[], const uint8_t *pMsg, size_t msgSize, const uint8_t pSignSecrKey[]);
+
+    bool verify(const uint8_t pSign[], const uint8_t pSignPublKey[], const uint8_t *pMsg, size_t msgSize);
+
   private:
     bool _begun;
+
+    CRYS_ECEDW_TempBuff_t _tempBuff; 
 };
 
-#endif /* NRFCRYPTO_CURVE25519_H_ */
+#endif /* NRFCRYPTO_ED25519_H_ */
