@@ -4,7 +4,7 @@
 #define ED25519_KEY_SIZE_BYTES 32
 #define ED25519_SIGNATURE_SIZE_BYTES 64
 #define DATA_SIZE  48
-uint8_t pSecrKey[ED25519_KEY_SIZE_BYTES];
+uint8_t pSecrKey[2 * ED25519_KEY_SIZE_BYTES];
 uint8_t pPublKey[ED25519_KEY_SIZE_BYTES];
 uint8_t pSign[ED25519_SIGNATURE_SIZE_BYTES];
 
@@ -28,7 +28,10 @@ void setup()
     nRFCrypto.begin();
     ec.begin();
 
-    ec.generateKeyPair(pSecrKey, pPublKey);
+    //ec.generateKeyPair(pSecrKey, pPublKey);
+    Serial.flush();
+    Serial.println(ec.generateKeyPair(pSecrKey, pPublKey));
+    Serial.printBuffer((uint8_t *)pSecrKey, 2 * ED25519_KEY_SIZE_BYTES, ' ', 16);
     ec.sign(pSign, random_data, DATA_SIZE, pSecrKey);
     ec.verify(pSign, pPublKey, random_data, DATA_SIZE);
     

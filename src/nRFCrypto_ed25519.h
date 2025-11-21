@@ -34,15 +34,13 @@ class nRFCrypto_ed25519 {
     bool begin(void);
     void end(void);
 
-    bool generateKeyPair(uint8_t pSecrKey[], uint8_t pPublKey[]);
-
-    bool sign(uint8_t pSign[], const uint8_t *pMsg, size_t msgSize, const uint8_t pSignSecrKey[]);
-
-    bool verify(const uint8_t pSign[], const uint8_t pSignPublKey[], const uint8_t *pMsg, size_t msgSize);
+    bool generateKeyPair(uint8_t *pSecrKey, uint8_t *PublKey);
+    bool sign(uint8_t *pSign, const uint8_t *pMsg, size_t msgSize, const uint8_t *pSignSecrKey);
+    bool verify(const uint8_t *pSign, const uint8_t *pSignPublKey, const uint8_t *pMsg, size_t msgSize);
 
   private:
+    nRFCrypto_Random rng;
     bool _begun;
-
     CRYS_ECEDW_TempBuff_t _tempBuff; 
 };
 
