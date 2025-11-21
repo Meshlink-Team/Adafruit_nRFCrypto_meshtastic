@@ -41,7 +41,6 @@ class nRFCrypto_ed25519 {
   private:
     nRFCrypto_Random rng;
     bool _begun;
-    CRYS_ECEDW_TempBuff_t _tempBuff; 
 };
 
 #endif /* NRFCRYPTO_ED25519_H_ */
