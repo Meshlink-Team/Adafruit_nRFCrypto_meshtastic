@@ -51,8 +51,8 @@ bool nRFCrypto_ed25519::generateKeyPair(uint8_t *pSecrKey, uint8_t *pPublKey) {
 bool nRFCrypto_ed25519::sign(uint8_t *pSign, const uint8_t *pMsg, size_t msgSize, const uint8_t *pSignSecrKey) {
   if (!_begun) return false;
   
-  size_t signSize = ED25519_SIGNATURE_SIZE_BYTES;
-  size_t secrKeySize = ED25519_KEY_SIZE_BYTES;
+  size_t signSize = 2 * ED25519_SIGNATURE_SIZE_BYTES;
+  size_t secrKeySize = 2 * ED25519_KEY_SIZE_BYTES;
 
   VERIFY_ERROR(CRYS_ECEDW_Sign(pSign, &signSize, pMsg, msgSize, pSignSecrKey, secrKeySize, &_tempBuff), false);
 
@@ -65,7 +65,9 @@ bool nRFCrypto_ed25519::verify(const uint8_t *pSign, const uint8_t *pSignPublKey
   size_t signSize = ED25519_SIGNATURE_SIZE_BYTES;
   size_t publKeySize = ED25519_KEY_SIZE_BYTES;
 
-  VERIFY(CRYS_ECEDW_Verify(pSign, signSize, pSignPublKey, publKeySize, (uint8_t*)pMsg, msgSize, &_tempBuff), false);
-
+  CRYSError_t err;
+  err = CRYS_ECEDW_Verify(pSign, signSize, pSignPublKey, publKeySize, (uint8_t*)pMsg, msgSize, &_tempBuff);
+  if(err != 0)
+    return false;
   return true;
 }
