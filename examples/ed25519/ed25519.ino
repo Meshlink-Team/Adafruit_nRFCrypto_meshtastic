@@ -2,10 +2,14 @@
 #include <Adafruit_TinyUSB.h> // for Serial
 
 /*
-Execution times (time measuring using scilloscope)
+Execution times in hardware (time measuring using scilloscope)
 ec.generateKeyPair(pSecrKey, pPublKey) 502 ns
 ec.sign(pSign, random_data, DATA_SIZE, pSecrKey) 562 ns
 ec.verify(pFakeSign, pPublKey, random_data, DATA_SIZE) 614 ns
+
+Execution times in software (time measuring using scilloscope)
+ec.sign() 170 ms
+ec.verify() 
 */
 #define ED25519_KEY_SIZE_BYTES 32
 #define ED25519_SIGNATURE_SIZE_BYTES 64
