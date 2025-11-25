@@ -1,6 +1,12 @@
 #include "Adafruit_nRFCrypto.h"
 #include <Adafruit_TinyUSB.h> // for Serial
 
+/*
+Execution times (time measuring using scilloscope)
+ec.generateKeyPair(pSecrKey, pPublKey) 502 ns
+ec.sign(pSign, random_data, DATA_SIZE, pSecrKey) 562 ns
+ec.verify(pFakeSign, pPublKey, random_data, DATA_SIZE) 614 ns
+*/
 #define ED25519_KEY_SIZE_BYTES 32
 #define ED25519_SIGNATURE_SIZE_BYTES 64
 #define DATA_SIZE  48
