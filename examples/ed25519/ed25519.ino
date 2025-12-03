@@ -1,6 +1,6 @@
 #include "Adafruit_nRFCrypto.h"
 #include <Adafruit_TinyUSB.h> // for Serial
-
+//prova
 /*
 Execution times in hardware (time measuring using scilloscope)
 ec.generateKeyPair(pSecrKey, pPublKey) 502 ns
